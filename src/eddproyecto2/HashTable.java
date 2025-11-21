@@ -19,8 +19,12 @@ public class HashTable {
     
     
     
-    private int getIndiceHash(String Clave) {
-        int Codigo = Clave.hashCode();
+    public int getIndiceHash(String Clave) {
+        char[] arrCodigo = Clave.trim().toCharArray();
+        int Codigo = 0;
+        for (int i=0; i< arrCodigo.length - 1; i++){
+            Codigo = Codigo + (arrCodigo[i]*20^(arrCodigo.length - (i+1)));
+        }
         int Indice = Codigo % this.Tablesize;
         return Math.abs(Indice);
     }
@@ -39,7 +43,9 @@ public class HashTable {
                 Aux.Valor = NValor;
                 return;
             }
-            if(Aux.Pnext == null) break;
+            if(Aux.Pnext == null){
+                break;
+            }
             Aux = Aux.Pnext;
         }
         Aux.Pnext = Pnew;
@@ -73,5 +79,35 @@ public class HashTable {
        return Final; 
     }
     
+    public NodoArticulo getNodo(int indiceHash){
+        return this.Table[indiceHash].Valor;
+    }
+            
+            
+            
+    public boolean existe (String clave){
+        int IndiceHash = getIndiceHash(clave);
+        NodoTable Aux = this.Table[IndiceHash];
+        if (Aux == null){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    /**
+     * /**
+     * Author: DanielBarreda
+     * Method: Itera por todos los indices del hash table en busqueda de valores distintos de null.
+     * @return: cadena: un string con todos los nombres de investigaciones disponibles. 
+     */
+    
+    public String mapear(){
+        String cadena = "";
+        for (int i=0; i< this.Tablesize; i++){
+            if (this.Table[i] != null)
+                cadena = cadena + this.Table[i].Valor.Titulo + "\n";
+        }
+        return cadena;
+    }
     
 }

@@ -16,7 +16,7 @@ public class NodoTable {
     public NodoTable(String Clave, NodoArticulo Valor) {
         this.Clave = Clave;
         this.Valor = Valor;
-        this.Pnext = Pnext;
+        this.Pnext = null;
     }
     
 }

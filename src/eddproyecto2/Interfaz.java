@@ -4,17 +4,22 @@
  */
 package eddproyecto2;
 
+import java.awt.event.ItemListener;
 import java.io.File;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author sjgg2
  */
 public class Interfaz extends javax.swing.JFrame {
+    ItemListener aListener;
     HashTable Table = new HashTable(100);
     Lector lector;
+    HashTable palabrasClave = new HashTable(100);
 
     /**
      * Creates new form Interfaz
@@ -35,10 +40,14 @@ public class Interfaz extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        insertarArchivo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Salida = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        consola = new javax.swing.JTextArea();
+        investigacionesDisponibles = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -46,21 +55,13 @@ public class Interfaz extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, -1));
 
-        jButton1.setText("Insertar Archivo");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        insertarArchivo.setText("Insertar Archivo");
+        insertarArchivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                insertarArchivoActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
-
-        jButton2.setText("Buscar Archivo");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, -1, -1));
+        getContentPane().add(insertarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
 
         Salida.setColumns(20);
         Salida.setRows(5);
@@ -68,48 +69,94 @@ public class Interfaz extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
+        consola.setColumns(20);
+        consola.setRows(5);
+        jScrollPane2.setViewportView(consola);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 400, 160));
+
+        investigacionesDisponibles.setToolTipText("Investigaciones disponibles");
+        investigacionesDisponibles.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                investigacionesDisponiblesItemStateChanged(evt);
+            }
+        });
+        investigacionesDisponibles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                investigacionesDisponiblesActionPerformed(evt);
+            }
+        });
+        getContentPane().add(investigacionesDisponibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 360, -1));
+        investigacionesDisponibles.getAccessibleContext().setAccessibleName("");
+
+        jLabel1.setText("Investigaciones insertadas:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, -1, -1));
+
+        jLabel2.setText("Seleccione uno para analizar el resumen de la investigacion seleccionada.");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-JFileChooser Selector = new JFileChooser();
+    private void insertarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertarArchivoActionPerformed
+        JFileChooser Selector = new JFileChooser();
         int Resultado = Selector.showOpenDialog(this);
         if (Resultado == JFileChooser.APPROVE_OPTION){
             File archivoSeleccionado = Selector.getSelectedFile();
             String nombreArchivo = Selector.getName(archivoSeleccionado);
-            JOptionPane.showMessageDialog(this, "Archivo: '" + nombreArchivo + "' seleccionado");
             lector = new Lector(archivoSeleccionado);
             this.lector.leer();
-            String Autores = "";
-            String Palabras = "";
-            System.out.println("El titulo es: " + this.lector.Titulo);
-            for (int i = 0; i < this.lector.Autores.length; i++) {
-            Autores = Autores + this.lector.Autores[i].trim();
-            if (i < this.lector.Autores.length - 1) {
-            Autores = Autores + ", ";
-            }}
-            for (int i = 0; i < this.lector.PalabrasClav.length; i++) {
-            Palabras = Palabras + this.lector.PalabrasClav[i].trim();
-            if (i < this.lector.PalabrasClav.length - 1) {
-            Palabras = Palabras + ", ";}
+            if (!Table.existe(this.lector.Titulo)){
+                JOptionPane.showMessageDialog(this, "Archivo: '" + nombreArchivo + "' seleccionado");
+                String Autores = "";
+                String Palabras = "";
+                System.out.println("El titulo es: " + this.lector.Titulo);
+                for (int i = 0; i < this.lector.Autores.length; i++) {
+                    Autores = Autores + this.lector.Autores[i].trim();
+                if (i < this.lector.Autores.length - 1) {
+                    Autores = Autores + ", ";
+                }}
+                for (int i = 0; i < this.lector.PalabrasClav.length; i++) {
+                    Palabras = Palabras + this.lector.PalabrasClav[i].trim();
+                if (i < this.lector.PalabrasClav.length - 1) {
+                    Palabras = Palabras + ", ";}
+                }
+                System.out.println("Los Autores son: " + Autores);
+                System.out.println("El Resumen es: " + this.lector.Resumen);
+                System.out.println("Las Palabras Claves son: " + Palabras);
+                consola.setText("El titulo es: " + this.lector.Titulo + "\nLos Autores son: " + Autores + "\n" + "El Resumen es: " + this.lector.Resumen + "\nLas Palabras Claves son: " + Palabras);
+                JOptionPane.showMessageDialog(this, "Archivo guardado existosamente");
+                NodoArticulo Nodo = new NodoArticulo (this.lector.Titulo , this.lector.Autores, this.lector.Resumen, this.lector.PalabrasClav);
+                Table.Insertar(this.lector.Titulo, Nodo);
+                String cadena = this.Table.mapear();
+                String[] arrCadena = cadena.split("\n");  
+                consola.setText(cadena);
+                DefaultComboBoxModel<String> investigaciones = new DefaultComboBoxModel<>(arrCadena);
+                this.investigacionesDisponibles.setModel(investigaciones);
+            }else{
+                JOptionPane.showMessageDialog(this, "El Archivo: '" + nombreArchivo + "' ya habia sido seleccionado, por favor seleccione uno distinto");
             }
-            System.out.println("Los Autores son: " + Autores);
-            System.out.println("El Resumen es: " + this.lector.Resumen);
-            System.out.println("Las Palabras Claves son: " + Palabras);
         }else{
             JOptionPane.showMessageDialog(this, "El usuario no insertó archivos.");
             }
-        JOptionPane.showMessageDialog(this, "Archivo guardado existosamente");
-        NodoArticulo Nodo = new NodoArticulo (this.lector.Titulo , this.lector.Autores, this.lector.Resumen, this.lector.PalabrasClav);
-        Table.Insertar(this.lector.Titulo, Nodo);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_insertarArchivoActionPerformed
+
+    private void investigacionesDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_investigacionesDisponiblesActionPerformed
         
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        String titulo = (String) investigacionesDisponibles.getSelectedItem();
+        NodoArticulo nodo = this.Table.getNodo(this.Table.getIndiceHash(titulo));
+        if (nodo != null){
+            String resumen = nodo.analizarResumen();
+            consola.setText(resumen);
+        }
+    }//GEN-LAST:event_investigacionesDisponiblesActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     Salida.setText(Table.getValor(Salida.getText()));
+    private void investigacionesDisponiblesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_investigacionesDisponiblesItemStateChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        consola.setText("Si sirve");
+    }//GEN-LAST:event_investigacionesDisponiblesItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -148,9 +195,13 @@ JFileChooser Selector = new JFileChooser();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Salida;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JTextArea consola;
+    private javax.swing.JButton insertarArchivo;
+    private javax.swing.JComboBox<String> investigacionesDisponibles;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

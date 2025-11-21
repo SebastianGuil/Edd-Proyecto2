@@ -54,6 +54,9 @@ public class Lector {
                 else if (linea.toLowerCase().contains("palabras claves")) {
                 String contenido = linea.substring(linea.indexOf(":") + 1).trim();
                 this.PalabrasClav = contenido.split(",");
+                if (this.PalabrasClav[PalabrasClav.length-1].contains(".")){
+                    PalabrasClav[PalabrasClav.length-1] = PalabrasClav[PalabrasClav.length-1].trim().substring(0, PalabrasClav[PalabrasClav.length-1].length() - 1);
+                }
                 continue;
                 }
                 switch (Estado){
