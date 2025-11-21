@@ -48,8 +48,10 @@ public class Interfaz extends javax.swing.JFrame {
         investigacionesDisponibles = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        buscarPorPalabrasClave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -61,7 +63,7 @@ public class Interfaz extends javax.swing.JFrame {
                 insertarArchivoActionPerformed(evt);
             }
         });
-        getContentPane().add(insertarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
+        getContentPane().add(insertarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, -1, -1));
 
         Salida.setColumns(20);
         Salida.setRows(5);
@@ -73,7 +75,7 @@ public class Interfaz extends javax.swing.JFrame {
         consola.setRows(5);
         jScrollPane2.setViewportView(consola);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 400, 160));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 810, 200));
 
         investigacionesDisponibles.setToolTipText("Investigaciones disponibles");
         investigacionesDisponibles.addItemListener(new java.awt.event.ItemListener() {
@@ -94,6 +96,14 @@ public class Interfaz extends javax.swing.JFrame {
 
         jLabel2.setText("Seleccione uno para analizar el resumen de la investigacion seleccionada.");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, -1, -1));
+
+        buscarPorPalabrasClave.setText("Buscar por palabras clave");
+        buscarPorPalabrasClave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarPorPalabrasClaveActionPerformed(evt);
+            }
+        });
+        getContentPane().add(buscarPorPalabrasClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -133,6 +143,11 @@ public class Interfaz extends javax.swing.JFrame {
                 consola.setText(cadena);
                 DefaultComboBoxModel<String> investigaciones = new DefaultComboBoxModel<>(arrCadena);
                 this.investigacionesDisponibles.setModel(investigaciones);
+                for (int i = 0; i < Nodo.PalClaves.length; i++){
+                    String palabraClave = Nodo.PalClaves[i];
+                    this.palabrasClave.Insertar(palabraClave, Nodo);
+                }
+                
             }else{
                 JOptionPane.showMessageDialog(this, "El Archivo: '" + nombreArchivo + "' ya habia sido seleccionado, por favor seleccione uno distinto");
             }
@@ -146,7 +161,7 @@ public class Interfaz extends javax.swing.JFrame {
         
         // TODO add your handling code here:
         String titulo = (String) investigacionesDisponibles.getSelectedItem();
-        NodoArticulo nodo = this.Table.getNodo(this.Table.getIndiceHash(titulo));
+        NodoArticulo nodo = this.Table.getNodoArticulo(this.Table.getIndiceHash(titulo));
         if (nodo != null){
             String resumen = nodo.analizarResumen();
             consola.setText(resumen);
@@ -157,6 +172,28 @@ public class Interfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
         consola.setText("Si sirve");
     }//GEN-LAST:event_investigacionesDisponiblesItemStateChanged
+
+    private void buscarPorPalabrasClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarPorPalabrasClaveActionPerformed
+        // TODO add your handling code here:
+        String palabraClave = JOptionPane.showInputDialog(this, "Inserte la palabra clave: ");
+        NodoTable nodoTable = this.palabrasClave.getNodoTable(this.palabrasClave.getIndiceHash(palabraClave));
+        if (nodoTable != null){
+            NodoArticulo nodo = nodoTable.Valor;
+            String titulos = "";
+            int i = 1;
+            titulos = i + ".- " + nodo.Titulo + "\n";
+            while (nodoTable.Pnext != null){
+                i++;
+                titulos = titulos + i + ".- " + nodoTable.Pnext.Valor.Titulo + "\n";
+                nodoTable = nodoTable.Pnext;
+            }
+            consola.setText("Las investigaciones que contienen '" + palabraClave + "' son:" + titulos);
+        }else{
+            JOptionPane.showMessageDialog(this, "No se encontraron articulos con: '" + palabraClave + "'. Por favor intente con otra");
+        }
+        
+        ;
+    }//GEN-LAST:event_buscarPorPalabrasClaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,6 +232,7 @@ public class Interfaz extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Salida;
+    private javax.swing.JButton buscarPorPalabrasClave;
     private javax.swing.JTextArea consola;
     private javax.swing.JButton insertarArchivo;
     private javax.swing.JComboBox<String> investigacionesDisponibles;
