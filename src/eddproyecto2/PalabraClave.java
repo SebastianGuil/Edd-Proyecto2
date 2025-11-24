@@ -8,21 +8,18 @@ package eddproyecto2;
  *
  * @author ibrahimbarbar
  */
-import java.util.ArrayList;
-import java.util.List;
-
 public class PalabraClave implements Comparable<PalabraClave> {
     private String palabra;
-    private List<String> titulosResumenes;
+    private Lista<String> titulosResumenes;
 
     public PalabraClave(String palabra) {
         this.palabra = palabra;
-        this.titulosResumenes = new ArrayList<>();
+        this.titulosResumenes = new Lista<>();
     }
 
     public void agregarResumen(String titulo) {
-        if (!titulosResumenes.contains(titulo)) {
-            titulosResumenes.add(titulo);
+        if (!titulosResumenes.contiene(titulo)) {
+            titulosResumenes.agregar(titulo);
         }
     }
 
@@ -30,7 +27,7 @@ public class PalabraClave implements Comparable<PalabraClave> {
         return palabra;
     }
 
-    public List<String> getTitulosResumenes() {
+    public Lista<String> getTitulosResumenes() {
         return titulosResumenes;
     }
 

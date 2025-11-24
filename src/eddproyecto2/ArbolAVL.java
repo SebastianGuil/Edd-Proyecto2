@@ -8,9 +8,6 @@ package eddproyecto2;
  *
  * @author ibrahimbarbar
  */
-import java.util.ArrayList;
-import java.util.List;
-
 public class ArbolAVL<T extends Comparable<T>> {
     private NodoAVL<T> raiz;
 
@@ -65,19 +62,19 @@ public class ArbolAVL<T extends Comparable<T>> {
         return buscar(nodo.derecha, dato);
     }
 
-    public List<T> obtenerListaInOrder() {
-        List<T> lista = new ArrayList<>();
-        inOrder(raiz, lista);
-        return lista;
-    }
+    public Lista<T> obtenerListaInOrder() {
+    Lista<T> lista = new Lista<>();
+    inOrder(raiz, lista);
+    return lista;
+}
 
-    private void inOrder(NodoAVL<T> nodo, List<T> lista) {
-        if (nodo != null) {
-            inOrder(nodo.izquierda, lista);
-            lista.add(nodo.dato);
-            inOrder(nodo.derecha, lista);
-        }
+    private void inOrder(NodoAVL<T> nodo, Lista<T> lista) {
+    if (nodo != null) {
+        inOrder(nodo.izquierda, lista);
+        lista.agregar(nodo.dato); 
+        inOrder(nodo.derecha, lista);
     }
+}
 
     private int altura(NodoAVL<T> nodo) {
         if (nodo == null) {

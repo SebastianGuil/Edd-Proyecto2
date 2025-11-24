@@ -8,8 +8,6 @@ package eddproyecto2;
  *
  * @author ibrahimbarbar
  */
-import java.util.List;
-
 public class ControladorBusqueda {
     private ArbolAVL<Autor> arbolAutores;
     private ArbolAVL<PalabraClave> arbolPalabras;
@@ -19,11 +17,11 @@ public class ControladorBusqueda {
         this.arbolPalabras = arbolPalabras;
     }
 
-    public List<Autor> obtenerAutoresOrdenados() {
+    public Lista<Autor> obtenerAutoresOrdenados() {
         return arbolAutores.obtenerListaInOrder();
     }
 
-    public List<String> buscarResumenesPorAutor(String nombreAutor) {
+    public Lista<String> buscarResumenesPorAutor(String nombreAutor) {
         Autor busqueda = new Autor(nombreAutor);
         Autor encontrado = arbolAutores.buscar(busqueda);
         if (encontrado != null) {
@@ -32,11 +30,11 @@ public class ControladorBusqueda {
         return null;
     }
 
-    public List<PalabraClave> obtenerPalabrasClaveOrdenadas() {
+    public Lista<PalabraClave> obtenerPalabrasClaveOrdenadas() {
         return arbolPalabras.obtenerListaInOrder();
     }
 
-    public List<String> buscarResumenesPorPalabra(String palabra) {
+    public Lista<String> buscarResumenesPorPalabra(String palabra) {
         PalabraClave busqueda = new PalabraClave(palabra);
         PalabraClave encontrado = arbolPalabras.buscar(busqueda);
         if (encontrado != null) {
