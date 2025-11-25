@@ -5,16 +5,25 @@
 package eddproyecto2;
 
 /**
- *
+ * 
  * @author ibrahimbarbar
+ * @param <T> 
  */
 public class ArbolAVL<T extends Comparable<T>> {
     private NodoAVL<T> raiz;
-
+/**
+ * 
+ * @param dato 
+ */
     public void insertar(T dato) {
         raiz = insertar(raiz, dato);
     }
-
+/**
+ * 
+ * @param nodo
+ * @param dato
+ * @return 
+ */
     private NodoAVL<T> insertar(NodoAVL<T> nodo, T dato) {
         if (nodo == null) {
             return new NodoAVL<>(dato);
@@ -44,11 +53,20 @@ public class ArbolAVL<T extends Comparable<T>> {
         }
         return nodo;
     }
-
+/**
+ * 
+ * @param dato
+ * @return 
+ */
     public T buscar(T dato) {
         return buscar(raiz, dato);
     }
-
+/**
+ * 
+ * @param nodo
+ * @param dato
+ * @return 
+ */
     private T buscar(NodoAVL<T> nodo, T dato) {
         if (nodo == null) {
             return null;
@@ -61,13 +79,20 @@ public class ArbolAVL<T extends Comparable<T>> {
         }
         return buscar(nodo.derecha, dato);
     }
-
+/**
+ * 
+ * @return 
+ */
     public Lista<T> obtenerListaInOrder() {
     Lista<T> lista = new Lista<>();
     inOrder(raiz, lista);
     return lista;
 }
-
+/**
+ * 
+ * @param nodo
+ * @param lista 
+ */
     private void inOrder(NodoAVL<T> nodo, Lista<T> lista) {
     if (nodo != null) {
         inOrder(nodo.izquierda, lista);
@@ -75,21 +100,33 @@ public class ArbolAVL<T extends Comparable<T>> {
         inOrder(nodo.derecha, lista);
     }
 }
-
+/**
+ * 
+ * @param nodo
+ * @return 
+ */
     private int altura(NodoAVL<T> nodo) {
         if (nodo == null) {
             return 0;
         }
         return nodo.altura;
     }
-
+/**
+ * 
+ * @param nodo
+ * @return 
+ */
     private int obtenerBalance(NodoAVL<T> nodo) {
         if (nodo == null) {
             return 0;
         }
         return altura(nodo.izquierda) - altura(nodo.derecha);
     }
-
+/**
+ * 
+ * @param y
+ * @return 
+ */
     private NodoAVL<T> rotarDerecha(NodoAVL<T> y) {
         NodoAVL<T> x = y.izquierda;
         NodoAVL<T> T2 = x.derecha;
@@ -99,7 +136,11 @@ public class ArbolAVL<T extends Comparable<T>> {
         x.altura = Math.max(altura(x.izquierda), altura(x.derecha)) + 1;
         return x;
     }
-
+/**
+ * 
+ * @param x
+ * @return 
+ */
     private NodoAVL<T> rotarIzquierda(NodoAVL<T> x) {
         NodoAVL<T> y = x.derecha;
         NodoAVL<T> T2 = y.izquierda;

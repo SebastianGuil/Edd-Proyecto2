@@ -16,7 +16,10 @@ public class Lista<T> {
         this.cabeza = null;
         this.tamano = 0;
     }
-
+/**
+ * 
+ * @param dato 
+ */
     public void agregar(T dato) {
         NodoLista<T> nuevo = new NodoLista<>(dato);
         if (cabeza == null) {
@@ -30,7 +33,11 @@ public class Lista<T> {
         }
         tamano++;
     }
-
+/**
+ * 
+ * @param dato
+ * @return 
+ */
     public boolean contiene(T dato) {
         NodoLista<T> actual = cabeza;
         while (actual != null) {
@@ -41,7 +48,11 @@ public class Lista<T> {
         }
         return false;
     }
-
+/**
+ * 
+ * @param indice
+ * @return 
+ */
     public T obtener(int indice) {
         if (indice < 0 || indice >= tamano) {
             return null;
@@ -52,11 +63,17 @@ public class Lista<T> {
         }
         return actual.getDato();
     }
-
+/**
+ * 
+ * @return 
+ */
     public int getTamano() {
         return tamano;
     }
-
+/**
+ * 
+ * @return 
+ */
     public boolean esVacia() {
         return cabeza == null;
     }

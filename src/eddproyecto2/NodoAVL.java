@@ -5,17 +5,21 @@
 package eddproyecto2;
 
 /**
- *
+ * 
  * @author ibrahimbarbar
+ * @param <T> 
  */
 public class NodoAVL<T extends Comparable<T>> {
     T dato;
     int altura;
     NodoAVL<T> izquierda;
     NodoAVL<T> derecha;
-
-    public NodoAVL(T dato) {
-        this.dato = dato;
-        this.altura = 1;
+/**
+ * 
+ * @param dato 
+ */
+public NodoAVL(T dato) {
+    this.dato = dato;
+    this.altura = 1;
     }
 }

@@ -11,24 +11,39 @@ package eddproyecto2;
 public class NodoLista<T> {
     private T dato;
     private NodoLista<T> siguiente;
-
+/**
+ * 
+ * @param dato 
+ */
     public NodoLista(T dato) {
         this.dato = dato;
         this.siguiente = null;
     }
-
+/**
+ * 
+ * @return 
+ */
     public T getDato() {
         return dato;
     }
-
+/**
+ * 
+ * @param dato 
+ */
     public void setDato(T dato) {
         this.dato = dato;
     }
-
+/**
+ * 
+ * @return 
+ */
     public NodoLista<T> getSiguiente() {
         return siguiente;
     }
-
+/**
+ * 
+ * @param siguiente 
+ */
     public void setSiguiente(NodoLista<T> siguiente) {
         this.siguiente = siguiente;
     }
