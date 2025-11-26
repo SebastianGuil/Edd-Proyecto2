@@ -5,7 +5,7 @@
 package eddproyecto2;
 
 /**
- *
+ *Implementación personalizada de una Lista Simplemente Enlazada.
  * @author ibrahimbarbar
  */
 public class Lista<T> {

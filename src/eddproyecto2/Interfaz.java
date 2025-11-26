@@ -1,4 +1,8 @@
-/*
+/*/**
+ * Clase principal de la Interfaz Gráfica de Usuario (GUI).
+ * Hereda de JFrame y gestiona todos los componentes visuales, eventos de botones
+ * y la interacción directa con el usuario.
+ * * @author Sebastian Guillen
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -169,7 +173,7 @@ public class Interfaz extends javax.swing.JFrame {
                     String palabra = this.lector.PalabrasClav[i].trim();
                     if (palabrasClave.existe(palabra)) {
                         int indice = palabrasClave.getIndiceHash(palabra);
-                        NodoArticulo nodoExistente = palabrasClave.getNodo(indice);
+                        NodoArticulo nodoExistente = palabrasClave.getNodoArticulo(indice);
                         if (nodoExistente != null && nodoExistente.Titulo.equalsIgnoreCase(palabra)) {
                             nodoExistente.Resumen = nodoExistente.Resumen + "\n" + this.lector.Titulo;
                         }
@@ -233,7 +237,7 @@ public class Interfaz extends javax.swing.JFrame {
             if (titulo != null) {
                 int indice = this.Table.getIndiceHash(titulo);
                 if (this.Table.existe(titulo)) {
-                    NodoArticulo nodo = this.Table.getNodo(indice);
+                    NodoArticulo nodo = this.Table.getNodoArticulo(indice);
                     if (nodo != null){
                         String resumen = nodo.analizarResumen();
                         consola.setText(resumen);
@@ -252,7 +256,7 @@ public class Interfaz extends javax.swing.JFrame {
         if (busqueda.length() > 0) {
             if (palabrasClave.existe(busqueda)) {
                 int indice = palabrasClave.getIndiceHash(busqueda);
-                NodoArticulo nodoPalabra = palabrasClave.getNodo(indice);
+                NodoArticulo nodoPalabra = palabrasClave.getNodoArticulo(indice);
                 if (nodoPalabra != null && nodoPalabra.Titulo.equalsIgnoreCase(busqueda)) {
                     String listaTitulos = nodoPalabra.Resumen;
                     String[] arrResultados = listaTitulos.split("\n");

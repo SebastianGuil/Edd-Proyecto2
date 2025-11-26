@@ -6,11 +6,16 @@ package eddproyecto2;
 
 /**
  *
+ * Implementación de un Árbol Binario de Búsqueda Balanceado (AVL).
  * @author ibrahimbarbar
  */
 public class ArbolAVL<T extends Comparable<T>> {
     private NodoAVL<T> raiz;
-
+/**
+     * Inserta un nuevo elemento en el árbol AVL manteniendo su balance.
+     * Si el árbol se desbalancea tras la inserción, se aplican rotaciones automáticas.
+     * * @param dato El dato a insertar.
+     */
     public void insertar(T dato) {
         raiz = insertar(raiz, dato);
     }
@@ -48,7 +53,11 @@ public class ArbolAVL<T extends Comparable<T>> {
     public T buscar(T dato) {
         return buscar(raiz, dato);
     }
-
+/**
+     * Busca un elemento específico dentro del árbol.
+     * * @param T dato 
+     * @return El objeto encontrado en el árbol, o null si no existe.
+     */
     private T buscar(NodoAVL<T> nodo, T dato) {
         if (nodo == null) {
             return null;
@@ -61,7 +70,12 @@ public class ArbolAVL<T extends Comparable<T>> {
         }
         return buscar(nodo.derecha, dato);
     }
-
+/**
+     * Genera una lista ordenada con todos los elementos del árbol.
+     * Realiza un recorrido in orden (Izquierda-Raíz-Derecha).
+     * 
+     * * @return Una Lista con los elementos ordenados ascendentemente.
+     */
     public Lista<T> obtenerListaInOrder() {
     Lista<T> lista = new Lista<>();
     inOrder(raiz, lista);

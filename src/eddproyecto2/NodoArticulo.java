@@ -5,7 +5,9 @@
 package eddproyecto2;
 
 /**
- *
+ *Clase que modela la inforación de una investigación científica.
+ * Contiene el título, autores, resumen y palabras clave, además de funcionalidades
+ * para analizar la frecuencia de términos.
  * @author sjgg2
  */
 public class NodoArticulo {

@@ -5,6 +5,9 @@
 package eddproyecto2;
 
 /**
+ *Nodo especializado para la Tabla Hash.
+ * Contiene la clave, el valor (NodoArticulo) y un puntero al siguiente nodo
+ * para manejar colisiones por encadenamiento.
  *
  * @author Sebastián Guillén
  */

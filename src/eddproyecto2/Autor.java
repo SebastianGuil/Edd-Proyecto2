@@ -5,7 +5,9 @@
 package eddproyecto2;
 
 /**
- *
+ * Representa a un autor dentro del sistema.
+ * Almacena el nombre del autor y una lista de los títulos de las investigaciones
+ * en las que ha participado.
  * @author ibrahimbarbar
  */
 public class Autor implements Comparable<Autor> {
@@ -16,7 +18,11 @@ public class Autor implements Comparable<Autor> {
         this.nombre = nombre;
         this.titulosResumenes = new Lista<>();
     }
-
+/**
+     * Asocia una nueva investigación a este autor.
+     * Solo agrega el título si este no se encuentra ya en la lista.
+     * * @param titulo El título de la investigación a agregar.
+     */
     public void agregarResumen(String titulo) {
         if (!titulosResumenes.contiene(titulo)) {
             titulosResumenes.agregar(titulo);

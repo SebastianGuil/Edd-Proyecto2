@@ -5,7 +5,9 @@
 package eddproyecto2;
 
 /**
- *
+ *Implementación de una Tabla Hash para el almacenamiento eficiente de Resúmenes.
+ * Maneja las colisiones mediante encadenamiento.
+ * Permite acceso directo a las investigaciones con complejidad O(1) en el caso promedio.
  * @author Sebastian Guillen
  */
 public class HashTable {
@@ -18,7 +20,12 @@ public class HashTable {
     }
     
     
-    
+    /**
+     * Calcula el índice del arreglo donde debe almacenarse una clave.
+     * Utiliza una función polinómica personalizada para distribuir las claves uniformemente.
+     * * @param Clave El título de la investigación o palabra clave.
+     * @return Un entero representando el índice válido en la tabla.
+     */
     public int getIndiceHash(String Clave) {
         char[] arrCodigo = Clave.trim().toLowerCase().toCharArray();
         int Codigo = 0;
@@ -40,7 +47,12 @@ public class HashTable {
     }
     return listaCompleta;
 }
-    
+    /**
+     * Inserta un nuevo nodo en la tabla hash.
+     * Si el índice ya está ocupado, maneja la colisión agregando el nodo a la lista enlazada.
+     * * @param NClave La clave única (título).
+     * @param NValor El objeto NodoArticulo que contiene la información.
+     */
     public void Insertar (String NClave, NodoArticulo NValor){
         int IndiceHash = getIndiceHash(NClave);
         NodoTable Pnew = new NodoTable(NClave, NValor);

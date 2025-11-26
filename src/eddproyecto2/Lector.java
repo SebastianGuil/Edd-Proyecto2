@@ -1,7 +1,11 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+ * Analizador de archivos de texto.
+ * Se encarga de leer, interpretar y extraer la información estructurada (Título, Autores, Resumen y palabras clave)
+ * desde los archivos cargados por el usuario.
+ * * @author Sebastian Guillen
+*/
 package eddproyecto2;
 
 import java.io.BufferedReader;
@@ -29,7 +33,11 @@ public class Lector {
     }
 
     
-    
+    /**
+     * Procesa el archivo seleccionado línea por línea.
+     * Identifica las secciones del documento mediante palabras clave como "Autores" o "Resumen"
+     * y almacena la información en los atributos de la clase.
+     */
     public void leer (){
         try {
             BufferedReader reader = new BufferedReader(new FileReader(this.archivo));

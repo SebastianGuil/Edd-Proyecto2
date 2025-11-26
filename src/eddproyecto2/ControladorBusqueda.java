@@ -5,7 +5,9 @@
 package eddproyecto2;
 
 /**
- *
+ *Clase controladora que gestiona la lógica de búsqueda y organización del sistema.
+ * Actúa como intermediario entre la Interfaz gráfica y las estructuras de datos (Árboles AVL),
+ * coordinando las inserciones y las consultas por autor, palabra clave y título.
  * @author ibrahimbarbar
  */
 public class ControladorBusqueda {
@@ -18,11 +20,18 @@ public class ControladorBusqueda {
         this.arbolPalabras = arbolPalabras;
         this.arbolTitulos = new ArbolAVL<>();
     }
-    
+    /**
+     * Inserta un título de investigación en el índice de títulos.
+     * Permite mantener un listado ordenado alfabéticamente de todas las obras.
+     * * @param titulo El nombre de la investigación.
+     */
     public void insertarTitulo(String titulo) {
         arbolTitulos.insertar(titulo);
     }
-    
+    /**
+     * Recupera la lista completa de autores registrados en el sistema.
+     * * @return Lista de autores ordenada alfabéticamente.
+     */
     public Lista<Autor> obtenerAutoresOrdenados() {
         return arbolAutores.obtenerListaInOrder();
     }
@@ -52,7 +61,11 @@ public class ControladorBusqueda {
             arbolPalabras.insertar(busqueda);
     }
 }
-    
+    /**
+     * Busca las investigaciones asociadas a un autor específico.
+     * * @param nombreAutor El nombre del autor a consultar.
+     * @return Lista de títulos de investigaciones de ese autor, o null si no existe.
+     */
     public Lista<String> buscarResumenesPorAutor(String nombreAutor) {
         Autor busqueda = new Autor(nombreAutor);
         Autor encontrado = arbolAutores.buscar(busqueda);

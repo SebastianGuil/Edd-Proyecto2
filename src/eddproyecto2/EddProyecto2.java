@@ -5,7 +5,8 @@
 package eddproyecto2;
 
 /**
- *
+ *Clase principal de la aplicación.
+ * Se encarga de iniciar la interfaz gráfica y arrancar el sistema.
  * @author sjgg2
  */
 public class EddProyecto2 {

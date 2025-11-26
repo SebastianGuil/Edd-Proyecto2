@@ -5,6 +5,8 @@
 package eddproyecto2;
 
 /**
+ *Nodo simple para la construcción de Listas Enlazadas.
+ * Almacena el dato y una referencia al siguiente nodo.
  *
  * @author ibrahimbarbar
  */

@@ -5,7 +5,7 @@
 package eddproyecto2;
 
 /**
- *
+ *Se encarga de las operaciones de Entrada/Salida y/o relacionadas con el almacenamiento.
  * @author ibrahimbarbar
  */
 import java.io.BufferedWriter;
@@ -26,7 +26,11 @@ public class GestorArchivos {
 
     }
 }
-    
+    /**
+     * Guarda todas las investigaciones cargadas en un archivo de texto plano.
+     * El formato de salida es compatible con el formato de lectura del sistema.
+     * * @param articulos La lista completa de nodos de artículo proveniente del HashTable.
+     */
     public void guardarRepositorio(Lista<NodoArticulo> articulos) {
         String ruta = "repositorio.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(ruta))) {

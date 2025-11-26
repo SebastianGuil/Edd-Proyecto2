@@ -5,7 +5,8 @@
 package eddproyecto2;
 
 /**
- *
+ *Representa una palabra clave utilizada para indexar investigaciones.
+ * Implementa Comparable para permitir su ordenamiento alfabético en árboles AVL.
  * @author ibrahimbarbar
  */
 public class PalabraClave implements Comparable<PalabraClave> {

@@ -5,7 +5,9 @@
 package eddproyecto2;
 
 /**
- *
+ *Nodo fundamental para la estructura del Árbol AVL.
+ * Contiene el dato, la referencia a los hijos izquierdo y derecho, y la altura del nodo
+ * para cálculos de balanceo.
  * @author ibrahimbarbar
  */
 public class NodoAVL<T extends Comparable<T>> {
