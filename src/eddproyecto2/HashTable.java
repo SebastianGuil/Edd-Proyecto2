@@ -20,7 +20,7 @@ public class HashTable {
     
     
     public int getIndiceHash(String Clave) {
-        char[] arrCodigo = Clave.trim().toCharArray();
+        char[] arrCodigo = Clave.trim().toLowerCase().toCharArray();
         int Codigo = 0;
         for (int i=0; i< arrCodigo.length - 1; i++){
             Codigo = Codigo + (arrCodigo[i]*20^(arrCodigo.length - (i+1)));
@@ -46,20 +46,13 @@ public class HashTable {
         NodoTable Pnew = new NodoTable(NClave, NValor);
         if (this.Table[IndiceHash]==null){
             this.Table[IndiceHash] = Pnew;
-            return ;
-        }
-        NodoTable Aux = this.Table[IndiceHash];
-        while (Aux != null){
-            if (Aux.Clave.equals(NClave)){
-                Aux.Valor = NValor;
-                return;
+        }else{
+            NodoTable Aux = this.Table[IndiceHash];
+            while (Aux.Pnext != null){
+                Aux = Aux.Pnext;
             }
-            if(Aux.Pnext == null){
-                break;
-            }
-            Aux = Aux.Pnext;
+            Aux.Pnext = Pnew;
         }
-        Aux.Pnext = Pnew;
     }
     
     public String getValor (String Clave){
@@ -90,10 +83,13 @@ public class HashTable {
        return Final; 
     }
     
-    public NodoArticulo getNodo(int indiceHash){
+    public NodoArticulo getNodoArticulo(int indiceHash){
         return this.Table[indiceHash].Valor;
     }
-            
+    
+    public NodoTable getNodoTable(int indiceHash){
+        return this.Table[indiceHash];
+    }
             
             
     public boolean existe (String clave){

@@ -13,14 +13,12 @@ public class NodoArticulo {
     String [] Autores;
     String Resumen;
     String [] PalClaves;
-    HashTable palabrasClave;
 
     public NodoArticulo(String Titulo, String[] Autores, String Resumen, String[] PalClaves) {
         this.Titulo = Titulo;
         this.Autores = Autores;
         this.Resumen = Resumen;
         this.PalClaves = PalClaves;
-        this.palabrasClave = new HashTable(this.PalClaves.length);
     }
     
     
