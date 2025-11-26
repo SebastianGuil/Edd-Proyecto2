@@ -20,6 +20,7 @@ public class Interfaz extends javax.swing.JFrame {
     HashTable Table = new HashTable(100);
     Lector lector;
     HashTable palabrasClave = new HashTable(100);
+    ControladorBusqueda controlador;
 
     /**
      * Creates new form Interfaz
@@ -28,6 +29,9 @@ public class Interfaz extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.pack();
+        ArbolAVL<Autor> arbolAutores = new ArbolAVL<>();
+        ArbolAVL<PalabraClave> arbolPalabras = new ArbolAVL<>();
+        this.controlador = new ControladorBusqueda(arbolAutores, arbolPalabras);
     }
 
     /**
@@ -48,6 +52,12 @@ public class Interfaz extends javax.swing.JFrame {
         investigacionesDisponibles = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        ComboAutores = new javax.swing.JComboBox<>();
+        jButton4 = new javax.swing.JButton();
+        ComboPalabras = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -61,19 +71,19 @@ public class Interfaz extends javax.swing.JFrame {
                 insertarArchivoActionPerformed(evt);
             }
         });
-        getContentPane().add(insertarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
+        getContentPane().add(insertarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, -1, -1));
 
         Salida.setColumns(20);
         Salida.setRows(5);
         jScrollPane1.setViewportView(Salida);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, -1, -1));
 
         consola.setColumns(20);
         consola.setRows(5);
         jScrollPane2.setViewportView(consola);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 400, 160));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 400, 160));
 
         investigacionesDisponibles.setToolTipText("Investigaciones disponibles");
         investigacionesDisponibles.addItemListener(new java.awt.event.ItemListener() {
@@ -86,14 +96,62 @@ public class Interfaz extends javax.swing.JFrame {
                 investigacionesDisponiblesActionPerformed(evt);
             }
         });
-        getContentPane().add(investigacionesDisponibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 360, -1));
+        getContentPane().add(investigacionesDisponibles, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 360, -1));
         investigacionesDisponibles.getAccessibleContext().setAccessibleName("");
 
         jLabel1.setText("Investigaciones insertadas:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, -1, -1));
 
         jLabel2.setText("Seleccione uno para analizar el resumen de la investigacion seleccionada.");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, -1, -1));
+
+        jButton1.setText("Guardar Investigaciones y Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 420, -1, -1));
+
+        jButton2.setText("Buscar por Palabra Clave");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 180, -1, -1));
+
+        jButton3.setText("Buscar por Autor");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 270, -1, -1));
+
+        ComboAutores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboAutores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboAutoresActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ComboAutores, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, 280, -1));
+
+        jButton4.setText("Ver Palabras");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 340, -1, -1));
+
+        ComboPalabras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboPalabras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboPalabrasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ComboPalabras, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 310, 280, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -107,6 +165,27 @@ public class Interfaz extends javax.swing.JFrame {
             lector = new Lector(archivoSeleccionado);
             this.lector.leer();
             if (!Table.existe(this.lector.Titulo)){
+                for (int i = 0; i < this.lector.PalabrasClav.length; i++) {
+                    String palabra = this.lector.PalabrasClav[i].trim();
+                    if (palabrasClave.existe(palabra)) {
+                        int indice = palabrasClave.getIndiceHash(palabra);
+                        NodoArticulo nodoExistente = palabrasClave.getNodo(indice);
+                        if (nodoExistente != null && nodoExistente.Titulo.equalsIgnoreCase(palabra)) {
+                            nodoExistente.Resumen = nodoExistente.Resumen + "\n" + this.lector.Titulo;
+                        }
+                    } else {
+                        String[] dummyArr = new String[0]; 
+                        NodoArticulo nuevoNodo = new NodoArticulo(palabra, dummyArr, this.lector.Titulo, dummyArr);
+                        palabrasClave.Insertar(palabra, nuevoNodo);
+                    }
+                }
+                for (String nombreAutor : this.lector.Autores) {
+                    String nombreLimpio = nombreAutor.trim();
+                    controlador.AgregarAutor(nombreLimpio, this.lector.Titulo);
+                }
+                for (String palabra : this.lector.PalabrasClav) {
+                    controlador.agregarPalabraClave(palabra, this.lector.Titulo);
+                }
                 JOptionPane.showMessageDialog(this, "Archivo: '" + nombreArchivo + "' seleccionado");
                 String Autores = "";
                 String Palabras = "";
@@ -127,12 +206,19 @@ public class Interfaz extends javax.swing.JFrame {
                 consola.setText("El titulo es: " + this.lector.Titulo + "\nLos Autores son: " + Autores + "\n" + "El Resumen es: " + this.lector.Resumen + "\nLas Palabras Claves son: " + Palabras);
                 JOptionPane.showMessageDialog(this, "Archivo guardado existosamente");
                 NodoArticulo Nodo = new NodoArticulo (this.lector.Titulo , this.lector.Autores, this.lector.Resumen, this.lector.PalabrasClav);
-                Table.Insertar(this.lector.Titulo, Nodo);
-                String cadena = this.Table.mapear();
-                String[] arrCadena = cadena.split("\n");  
-                consola.setText(cadena);
-                DefaultComboBoxModel<String> investigaciones = new DefaultComboBoxModel<>(arrCadena);
-                this.investigacionesDisponibles.setModel(investigaciones);
+                Table.Insertar(this.lector.Titulo, Nodo); 
+                controlador.insertarTitulo(this.lector.Titulo);
+                Lista<String> listaOrdenada = controlador.obtenerListaTitulos();
+                String[] arrOrdenado = new String[listaOrdenada.getTamano()];
+                for (int i = 0; i < listaOrdenada.getTamano(); i++){
+                    arrOrdenado[i] = listaOrdenada.obtener(i);
+                    DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(arrOrdenado);
+                    this.investigacionesDisponibles.setModel(model);
+                    consola.setText("=== Investigaciones Cargadas (A-Z) ===\n");
+                    for (String t : arrOrdenado) {
+                        consola.append(t + "\n");
+                    }
+                }
             }else{
                 JOptionPane.showMessageDialog(this, "El Archivo: '" + nombreArchivo + "' ya habia sido seleccionado, por favor seleccione uno distinto");
             }
@@ -143,20 +229,116 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_insertarArchivoActionPerformed
 
     private void investigacionesDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_investigacionesDisponiblesActionPerformed
-        
-        // TODO add your handling code here:
         String titulo = (String) investigacionesDisponibles.getSelectedItem();
-        NodoArticulo nodo = this.Table.getNodo(this.Table.getIndiceHash(titulo));
-        if (nodo != null){
-            String resumen = nodo.analizarResumen();
-            consola.setText(resumen);
-        }
+            if (titulo != null) {
+                int indice = this.Table.getIndiceHash(titulo);
+                if (this.Table.existe(titulo)) {
+                    NodoArticulo nodo = this.Table.getNodo(indice);
+                    if (nodo != null){
+                        String resumen = nodo.analizarResumen();
+                        consola.setText(resumen);
+}
+}
+}
     }//GEN-LAST:event_investigacionesDisponiblesActionPerformed
 
     private void investigacionesDisponiblesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_investigacionesDisponiblesItemStateChanged
         // TODO add your handling code here:
         consola.setText("Si sirve");
     }//GEN-LAST:event_investigacionesDisponiblesItemStateChanged
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String busqueda = Salida.getText().trim();
+        if (busqueda.length() > 0) {
+            if (palabrasClave.existe(busqueda)) {
+                int indice = palabrasClave.getIndiceHash(busqueda);
+                NodoArticulo nodoPalabra = palabrasClave.getNodo(indice);
+                if (nodoPalabra != null && nodoPalabra.Titulo.equalsIgnoreCase(busqueda)) {
+                    String listaTitulos = nodoPalabra.Resumen;
+                    String[] arrResultados = listaTitulos.split("\n");
+                    DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(arrResultados);
+                    investigacionesDisponibles.setModel(modelo);
+                    consola.setText("Las investigaciones con la palabra clave solicitada \n se encuentran en la barra de investigaciones");
+                } else {
+                JOptionPane.showMessageDialog(this, "Error de colisión en Hash.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontraron investigaciones con esa palabra.");
+        }
+    }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    Lista<Autor> listaAutores = controlador.obtenerAutoresOrdenados();
+    if (!listaAutores.esVacia()) {
+        String[] nombresAutores = new String[listaAutores.getTamano()];
+        for (int i = 0; i < listaAutores.getTamano(); i++) {
+            nombresAutores[i] = listaAutores.obtener(i).getNombre(); 
+        }
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(nombresAutores);
+        ComboAutores.setModel(model);
+}
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void ComboAutoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboAutoresActionPerformed
+    String autorSeleccionado = (String) ComboAutores.getSelectedItem();
+    if (autorSeleccionado != null) {
+        Lista<String> investigacionesDelAutor = controlador.buscarResumenesPorAutor(autorSeleccionado);
+        if (investigacionesDelAutor != null && !investigacionesDelAutor.esVacia()) {
+            String[] arrInvestigaciones = new String[investigacionesDelAutor.getTamano()];
+            for(int i=0; i<investigacionesDelAutor.getTamano(); i++) {
+                arrInvestigaciones[i] = investigacionesDelAutor.obtener(i);
+                }
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(arrInvestigaciones);
+            investigacionesDisponibles.setModel(model);
+            consola.setText("Las investigaciones de: " + autorSeleccionado + "\nse muestran en la barra de investigaciones");
+        }
+    }      // TODO add your handling code here:
+    }//GEN-LAST:event_ComboAutoresActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    Lista<PalabraClave> listaPalabras = controlador.obtenerPalabrasClaveOrdenadas();
+    if (!listaPalabras.esVacia()) {
+        String[] arrPalabras = new String[listaPalabras.getTamano()];
+        for (int i = 0; i < listaPalabras.getTamano(); i++) {
+            arrPalabras[i] = listaPalabras.obtener(i).toString(); 
+        }
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(arrPalabras);
+        ComboPalabras.setModel(model); 
+    }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void ComboPalabrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPalabrasActionPerformed
+    String palabraSeleccionada = (String) ComboPalabras.getSelectedItem();
+    if (palabraSeleccionada != null) {
+        Lista<String> investigaciones = controlador.buscarResumenesPorPalabra(palabraSeleccionada);
+        if (investigaciones != null && !investigaciones.esVacia()) {
+            String[] arrTitulos = new String[investigaciones.getTamano()];
+            for (int i = 0; i < investigaciones.getTamano(); i++) {
+                arrTitulos[i] = investigaciones.obtener(i);
+            }
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(arrTitulos);
+            investigacionesDisponibles.setModel(model);
+            consola.setText("Mostrando artículos con la palabra clave: " + palabraSeleccionada);
+        } else {
+             consola.setText("Esa palabra no tiene investigaciones asociadas (Raro...)");
+        }
+    }
+    }//GEN-LAST:event_ComboPalabrasActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    GestorArchivos gestor = new GestorArchivos();
+    Lista<NodoArticulo> todosLosArticulos = Table.obtenerTodos();
+    if (!todosLosArticulos.esVacia()) {
+        gestor.guardarRepositorio(todosLosArticulos);
+        JOptionPane.showMessageDialog(this, "Se han guardado " + todosLosArticulos.getTamano() + " investigaciones en 'repositorio.txt'.");
+    } else {
+        JOptionPane.showMessageDialog(this, "No había nada que guardar.");
+    }
+    System.exit(0);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,10 +376,16 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> ComboAutores;
+    private javax.swing.JComboBox<String> ComboPalabras;
     private javax.swing.JTextArea Salida;
     private javax.swing.JTextArea consola;
     private javax.swing.JButton insertarArchivo;
     private javax.swing.JComboBox<String> investigacionesDisponibles;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
